@@ -2,13 +2,14 @@
 using Binance.API.Csharp.Client.Models.Enums;
 using System.Threading;
 using Binance.API.Csharp.Client.Models.WebSocket;
+using System;
 
 namespace Binance.API.Csharp.Client.Test
 {
     [TestClass]
     public class BinanceTest
     {
-        private static ApiClient apiClient = new ApiClient("@YourApiKey", "@YourApiSecret");
+        private static ApiClient apiClient = new ApiClient("NTxh9HlyIPyNiCJ5c5efbor82KMWq0rG0EkwweEqgybVGzmvxshTqvdQSzrIgqSn", "c3L0lDyrE6pdVxZ5AkNkuRFyTQPKslOtdz5OCw6Z8j8gZkF7Emj5xcFyHvALFtL2", "https://fapi.binance.com", "wss://fstream.binance.com/ws/");
         private static BinanceClient binanceClient = new BinanceClient(apiClient,false);
 
         #region General
@@ -22,6 +23,8 @@ namespace Binance.API.Csharp.Client.Test
         public void GetServerTime()
         {
             var serverTime = binanceClient.GetServerTime().Result;
+            var dtnow = (DateTime.Now.ToUniversalTime().Ticks - 621355968000000000) / 10000;
+            var ds = long.Parse(dtnow.ToString()) - serverTime.ServerTime;//本地时间和币安服务器时间相差
         }
         #endregion
 
@@ -120,6 +123,14 @@ namespace Binance.API.Csharp.Client.Test
         public void GetAccountInfo()
         {
             var accountInfo = binanceClient.GetAccountInfo().Result;
+            var ib = accountInfo.Balances as System.Collections.Generic.List<Binance.API.Csharp.Client.Models.Market.Balance>;
+            foreach (var item in ib)
+            {
+                if (item.Asset== "USDT")
+                {
+
+                }
+            }
         }
 
         [TestMethod]

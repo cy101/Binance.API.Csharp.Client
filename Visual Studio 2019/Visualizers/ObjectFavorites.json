@@ -1,0 +1,10 @@
+{
+  "$schema": "https://aka.ms/vs/debugger-managed-favorites-schema",
+  "types": {
+    "Binance.API.Csharp.Client.Models.General.ServerInfo": {
+      "favorites": [
+        "ServerTime"
+      ]
+    }
+  }
+}
